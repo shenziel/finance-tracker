@@ -1,0 +1,92 @@
+🧍‍♂️ User Management
+
+User Registration
+As a new user, I want to create an account with my email and password so that I can securely access my data from any device.
+As a new user, I want to creante an account with my Google account, automatically, so it's easier to fill all account parameters.
+
+User Login
+As a registered user, I want to log into my account securely using my credentials so that I can access my saved expenses and budgets.
+As a registered user, I want to log into my account securely using my Google credentials, so that I can access my saved expenses and budgets easily.
+
+Profile Management
+As a user, I want to update my profile (name, currency, date format) so that the app feels personalized to my preferences.
+As a user, I want to load my account profile with existing settings from my Google account. 
+
+Password Security
+As a user, I want my passwords to be encrypted and stored securely so that my account remains protected even if the database is compromised.
+
+Expense & Income Tracking
+
+Add Expense
+As a user, I want to add a new expense with amount, category, date, and notes so that I can track where my money is going.
+
+Edit or Delete Expense
+As a user, I want to edit or delete an expense entry so that I can fix mistakes or remove outdated data.
+
+Add Income
+As a user, I want to add my income records so that I can compare my earnings and spending.
+
+Filter Transactions
+As a user, I want to filter my transactions by date range or category so that I can review spending trends easily.
+
+Categorize Transactions
+As a user, I want to organize my transactions into categories so that I can better understand my spending habits.
+
+Budget Management
+
+Set Monthly Budget
+As a user, I want to set a total monthly budget so that I can control my spending within limits.
+
+Category-Based Budgets
+As a user, I want to set budgets for specific categories (e.g., food, travel) so that I can manage different spending areas separately.
+
+Budget Alerts
+As a user, I want to get notified when I’m close to or over my budget so that I can adjust my spending habits in time.
+
+Track Remaining Budget
+As a user, I want to see how much of my budget is left in real time so that I can plan future expenses.
+
+Dashboard & Analytics
+
+View Summary Statistics
+As a user, I want to see my total income, expenses, and balance for a given period so that I can quickly gauge my financial health.
+
+View Category Breakdown
+As a user, I want to view a pie chart of spending by category so that I can identify which areas consume most of my money.
+
+Monthly Trends
+As a user, I want to see how my spending changes month by month so that I can track progress toward financial goals.
+
+Export Reports
+As a user, I want to export my transactions or summaries as CSV/PDF files so that I can keep offline records or share them.
+
+Settings & Customization
+
+Currency Settings
+As a user, I want to choose my preferred currency so that the app matches my local context.
+
+Theme Preference
+As a user, I want to toggle between light and dark mode so that I can use the app comfortably in different lighting conditions.
+
+Data Reset
+As a user, I want to delete all my data or reset my account so that I can start fresh whenever I choose.
+
+Security & Authentication
+
+JWT-Based Authentication
+As a developer, I want to use JWT for secure sessions so that the API remains protected and scalable.
+
+Session Expiry
+As a user, I want my session to automatically log out after inactivity so that my account stays secure.
+
+System & Deployment
+
+Persistent Storage
+As a user, I want my data stored in the cloud (MongoDB Atlas) so that I can access it from any device.
+
+API Reliability
+As a developer, I want the backend API to handle concurrent requests efficiently so that the app remains fast and stable.
+
+Responsive Design
+As a user, I want the app to adapt to any device screen size so that I can manage my finances on mobile or desktop.
+
