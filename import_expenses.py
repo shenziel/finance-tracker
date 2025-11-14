@@ -38,14 +38,15 @@ except PermissionError:
 except:
     print("Error occurred while copying file.")
 
-required_columns = ["data", "mês", "comerciante", "# talão", "categoria", "item sueco", "item", "quantidade", "unidade", "sek"]
+required_columns = ["data", "mês", "comerciante", "# talão", "categoria", "item sueco", "item", "quantidade", "unidade", "sek", "sek unit", "FX", "eur", "eur unit"]
 
 preview = pd.read_excel(destination, header=None, nrows=10)
 header_row_index = None
 row_str = []
 
 for i, row in preview.iterrows():
-    row_str = row.astype(str).str.lower().tolist()
+    if i == 2:
+        row_str = row.astype(str).str.lower().tolist()
     print(f"Row {i}: {row_str}")
     if any(h in row_str for h in required_columns):
         header_row_index = i
@@ -56,7 +57,7 @@ if header_row_index is None:
 
 print(f"✅ Detected header row at index: {header_row_index}")
 
-df = pd.read_excel(excel_file, header=header_row_index)
+df = pd.read_excel(excel_file, header=2)
 
 df.columns = df.columns.str.strip().str.lower()
 
@@ -77,13 +78,14 @@ col_map = {
     "Quantidade": row_str.index("quantidade"),
     "Unidade": row_str.index("unidade"),
     "SEK": row_str.index("sek"),
+    "SEK Unit": row_str.index("sek unit"),
+    "FX": row_str.index("fx"),
+    "EUR": row_str.index("eur"),
+    "EUR Unit": row_str.index("eur unit"),
 }
 
 print("📊 Preview of data:")
 print(col_map)
-
-#if not all(col_map.values()):
-#    raise ValueError(f"❌ Missing one or more required columns. Found: {col_map}")
 
 print(f"✅ Detected column mapping: {col_map}")
 
@@ -110,6 +112,30 @@ for row_index in range(2, len(df)):
     except Exception:
         sek = 0.0
 
+    # SEK Unit
+    try:
+        sek_unit = round(float(row[col_map["SEK Unit"]]), 2)
+    except Exception:
+        sek_unit = 0.0
+
+    # FX
+    try:
+        fx = round(float(row[col_map["FX"]]), 4)
+    except Exception:
+        fx = 0.0
+
+    # EUR
+    try:
+        eur = round(float(row[col_map["EUR"]]), 2)
+    except Exception:
+        eur = 0.0
+
+    # EUR Unit
+    try:
+        eur_unit = round(float(row[col_map["EUR Unit"]]), 2)
+    except Exception:
+        eur_unit = 0.0
+
     # Receipt number
     try:
         receipt_number = int(row[col_map["# talão"]])
@@ -118,15 +144,19 @@ for row_index in range(2, len(df)):
     
     # ------- Construct Document -------
     doc = {
-        "date": date,
-        "seller": str(row[col_map["Comerciante"]]) if not pd.isna(row[col_map["Comerciante"]]) else "",
-        "receipt_number": receipt_number,
-        "category": str(row[col_map["Categoria"]]) if not pd.isna(row[col_map["Categoria"]]) else "",
-        "item_swedish": str(row[col_map["Item Sueco"]]) if not pd.isna(row[col_map["Item Sueco"]]) else "",
-        "item": str(row[col_map["Item"]]) if not pd.isna(row[col_map["Item"]]) else "",
-        "quantity": str(row[col_map["Quantidade"]]) if not pd.isna(row[col_map["Quantidade"]]) else "",
-        "unit": str(row[col_map["Unidade"]]) if not pd.isna(row[col_map["Unidade"]]) else "",
+        "Date": date,
+        "Seller": str(row[col_map["Comerciante"]]) if not pd.isna(row[col_map["Comerciante"]]) else "",
+        "Receipt_number": receipt_number,
+        "Category": str(row[col_map["Categoria"]]) if not pd.isna(row[col_map["Categoria"]]) else "",
+        "Item_swedish": str(row[col_map["Item Sueco"]]) if not pd.isna(row[col_map["Item Sueco"]]) else "",
+        "Item": str(row[col_map["Item"]]) if not pd.isna(row[col_map["Item"]]) else "",
+        "Quantity": str(row[col_map["Quantidade"]]) if not pd.isna(row[col_map["Quantidade"]]) else "",
+        "Unit": str(row[col_map["Unidade"]]) if not pd.isna(row[col_map["Unidade"]]) else "",
         "SEK": sek,
+        "SEK Unit": sek_unit,
+        "EUR": eur,
+        "EUR Unit": eur_unit,
+        "FX": fx,
         "created_at": datetime.now()
     }
 
